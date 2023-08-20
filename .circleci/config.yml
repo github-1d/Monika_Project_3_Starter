@@ -130,8 +130,9 @@ jobs:
       - run:
           name: Install tar and gzip
           command: |
-            apk update
-            apk install -y tar gzip
+            yum -y install tar gzip
+            # apk update
+            # apk install -y tar gzip
       - run:
           name: Ensure back-end infrastructure exists
           command: |
