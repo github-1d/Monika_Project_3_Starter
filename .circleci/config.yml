@@ -175,30 +175,30 @@ jobs:
           #   workflow_id: '${CIRCLE_WORKFLOW_ID:0:7}'
 
   # Configure of infrastructure
-  # configure-infrastructure:
-  #   docker:
-  #     - image: python:3.11-rc-alpine
-  #   steps:
-  #     - checkout
-  #     - add_ssh_keys:
-  #           fingerprints: ["e4:8a:8b:32:13:3d:c9:59:0e:5d:b9:84:67:89:8e:41"] 
-  #     - attach_workspace:
-  #         at: project/.circleci/ansible/inventory.txt
-  #     - run:
-  #         name: Install tar and gzip
-  #         command: |
-  #           apk add --no-cache tar gzip
-  #     - run:
-  #         name: Install ansible
-  #         command: |
-  #           apk add --update ansible
-  #     # - run:
-  #     #     name: Configure server
-  #     #     command: |
-  #     #       # Your code here
-  #     #       exit 1
+  configure-infrastructure:
+    docker:
+      - image: python:3.11-rc-alpine
+    steps:
+      - checkout
+      - add_ssh_keys:
+            fingerprints: ["e4:8a:8b:32:13:3d:c9:59:0e:5d:b9:84:67:89:8e:41"] 
+      - attach_workspace:
+          at: project/.circleci/ansible/inventory.txt
+      - run:
+          name: Install tar and gzip
+          command: |
+            apk add --no-cache tar gzip
+      - run:
+          name: Install ansible
+          command: |
+            apk add --update ansible
+      - run:
+          name: Configure server
+          command: |
+            cd .circleci/ansible
+            ansible-playbook -i inventory.txt configure-server.yml
   #     # Here's where you will add some code to rollback on failure  
-  #     - destroy-environment      
+      - destroy-environment      
 
 workflows:
   default:
@@ -218,7 +218,7 @@ workflows:
           filters:
             branches:
               only: [master]
-      # - configure-infrastructure:
-      #     requires: [deploy-infrastructure]
+      - configure-infrastructure:
+          requires: [deploy-infrastructure]
 
     
