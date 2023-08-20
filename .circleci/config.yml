@@ -10,8 +10,9 @@ commands:
               when: on_fail
               name: install aws aws-cli
               command: |
-                apk update
-                apk add --no-cache aws-cli
+                yum install aws-cli
+                # apk update
+                # apk add --no-cache aws-cli
           - run:
               name: Destroy environments
               when: on_fail
