@@ -141,7 +141,7 @@ jobs:
               --template-file .circleci/files/backend.yml \
               --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  \
-              --tags project=udapeople
+              --tags project=udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
       - run:
           name: Ensure front-end infrastructure exist
           command: |
@@ -149,7 +149,7 @@ jobs:
               --template-file .circleci/files/frontend.yml \
               --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  \
-              --tags project=udapeople
+              --tags project=udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
               
       - run:
           name: Add back-end ip to ansible inventory
@@ -159,9 +159,9 @@ jobs:
             # --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
             # --query 'Stacks[0].Outputs[*].{Key:OutputKey, Value:OutputValue}' \
             aws ec2 describe-instances \
-            --query Reservations[*].Instances[*].PublicIpAddress \
-            --filters Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7} \
-            --output text >> inventory.txt
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --filters Name=tag:project,Values=udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} \
+              --output text >> inventory.txt
 
       - persist_to_workspace:
           root: ~/
@@ -173,28 +173,30 @@ jobs:
           #   workflow_id: '${CIRCLE_WORKFLOW_ID:0:7}'
 
   # Configure of infrastructure
-  configure-infrastructure:
-    docker:
-      - image: python:3.11-rc-alpine
-    steps:
-      - checkout
-      - add_ssh_keys:
-            fingerprints: ["e4:8a:8b:32:13:3d:c9:59:0e:5d:b9:84:67:89:8e:41"] 
-      - attach_workspace:
-          at: project/.circleci/ansible/inventory.txt
-      - run:
-          name: Install tar and gzip
-          command: |
-            apk add --no-cache tar gzip
-            # yum -y install tar gzip
-            # apk update
-            # apk install -y tar gzip
-      # - run:
-      #     name: Configure server
-      #     command: |
-      #       # Your code here
-      #       exit 1
-      # Here's where you will add some code to rollback on failure      
+  # configure-infrastructure:
+  #   docker:
+  #     - image: python:3.11-rc-alpine
+  #   steps:
+  #     - checkout
+  #     - add_ssh_keys:
+  #           fingerprints: ["e4:8a:8b:32:13:3d:c9:59:0e:5d:b9:84:67:89:8e:41"] 
+  #     - attach_workspace:
+  #         at: project/.circleci/ansible/inventory.txt
+  #     - run:
+  #         name: Install tar and gzip
+  #         command: |
+  #           apk add --no-cache tar gzip
+  #     - run:
+  #         name: Install ansible
+  #         command: |
+  #           apk add --update ansible
+  #     # - run:
+  #     #     name: Configure server
+  #     #     command: |
+  #     #       # Your code here
+  #     #       exit 1
+  #     # Here's where you will add some code to rollback on failure  
+  #     - destroy-environment      
 
 workflows:
   default:
