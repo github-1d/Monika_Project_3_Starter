@@ -10,7 +10,7 @@ commands:
               when: on_fail
               name: install aws aws-cli
               command: |
-                yum install aws-cli
+                yum -y install aws-cli
                 # apk update
                 # apk add --no-cache aws-cli
           - run:
@@ -163,7 +163,7 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - .circleci/ansible/inventory.txt
+            - project/.circleci/ansible/inventory.txt
 
       - destroy-environment  
           # - destroy-environment:
