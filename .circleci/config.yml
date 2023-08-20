@@ -189,11 +189,11 @@ jobs:
             # yum -y install tar gzip
             apk update
             apk install -y tar gzip
-      - run:
-          name: Configure server
-          command: |
-            # Your code here
-            exit 1
+      # - run:
+      #     name: Configure server
+      #     command: |
+      #       # Your code here
+      #       exit 1
       # Here's where you will add some code to rollback on failure      
 
 workflows:
