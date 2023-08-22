@@ -9,9 +9,6 @@ commands:
         parameters:
           workflow_id:
             type: string
-          flow_id:
-            type: string
-            default: "text"
         steps:
           # - run:
           #     when: on_fail
@@ -179,8 +176,7 @@ jobs:
             - project/.circleci/ansible/inventory.txt
 
       - destroy-environment:
-          # flow_id: test
-          # workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+          workflow_id:  ${CIRCLE_WORKFLOW_ID:0:7}
 
   # Configure of infrastructure
   configure-infrastructure:
