@@ -1,14 +1,13 @@
 version: 2.1
 
-# orbs:
-#   aws-cli: circleci/aws-cli@2.0.3
+orbs:
+  aws-cli: circleci/aws-cli@2.0.3
 
 commands:
     destroy-environment:
         description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
-        # parameters:
-        #     workflow_id:
-        #       type: string
+        parameters:
+          # Add parameter here   
         steps:
           # - run:
           #     when: on_fail
@@ -21,8 +20,6 @@ commands:
               name: Destroy environments
               when: on_fail
               command: |
-                # echo "Destroying environment: << parameters.workflow_id >> "
-                # aws s3 rm s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
                 aws cloudformation delete-stack --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
                 aws cloudformation delete-stack --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
 
@@ -323,6 +320,7 @@ jobs:
       # - run:
       #     name: Get backend url
       #     command: |
+
       - run:
           name: Backend smoke test.
           command: |
@@ -351,9 +349,6 @@ jobs:
             else
               return 1
             fi
-      # - destroy-environment:
-      # - destroy-environment
-          # workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
       # Here's where you will add some code to rollback on failure  
 
 workflows:
