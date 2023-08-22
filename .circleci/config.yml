@@ -9,6 +9,8 @@ commands:
         parameters:
           workflow_id:
             type: string
+          flow_id:
+            type: string
         steps:
           # - run:
           #     when: on_fail
