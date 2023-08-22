@@ -179,7 +179,7 @@ jobs:
 
       - destroy-environment:
           flow_id: test
-            # workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
 
   # Configure of infrastructure
   configure-infrastructure:
