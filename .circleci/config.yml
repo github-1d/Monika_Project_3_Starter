@@ -242,6 +242,10 @@ jobs:
             apk add curl
             pip install awscli --upgrade
       - run:
+          name: Install ansible
+          command: |
+            apk add --update ansible
+      - run:
           name: Get backend url
           command: |
             export BACKEND_IP=$(aws ec2 describe-instances \
@@ -284,3 +288,5 @@ workflows:
           requires: [deploy-infrastructure]
       - run-migrations:
           requires: [configure-infrastructure]
+      - deploy-frontend:
+          requires: [run-migrations]
