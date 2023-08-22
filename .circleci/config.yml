@@ -305,7 +305,7 @@ jobs:
       # Here's where you will add some code to rollback on failure  
 
  # Smoke test for front and backend
-   smoke-test:
+  smoke-test:
     docker:
       - image: python:3.7-alpine3.11
     steps:
