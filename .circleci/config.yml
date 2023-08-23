@@ -340,6 +340,7 @@ jobs:
             # apk add nodejs
             # apk add npm
             # apk add curl
+            apt update
             apt-get install -y curl
             apt-get install -y awscli
             # pip3 install awscli
