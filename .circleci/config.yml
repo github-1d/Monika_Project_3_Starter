@@ -340,11 +340,11 @@ jobs:
             # apk add nodejs
             # apk add npm
             # apk add curl
-            apt-get install -y nodejs
-            apt-get install -y npm
-            apt-get install -y curl
-            apt-get install -y python3-pip
-            pip3 install awscli
+            sudo apt-get install -y nodejs
+            sudo apt-get install -y npm
+            sudo apt-get install -y curl
+            sudo apt-get install -y awscli
+            # pip3 install awscli
             # pip install awscli --upgrade
       # - run:
       #     name: Get backend url
