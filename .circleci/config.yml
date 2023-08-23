@@ -331,16 +331,21 @@ jobs:
  # Smoke test for front and backend
   smoke-test:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: circleci/node:13.8.0 # python:3.7-alpine3.11
     steps:
       - checkout
       - run:
           name: Install dependencies
           command: |
-            apk add nodejs
-            apk add npm
-            apk add curl
-            pip install awscli --upgrade
+            # apk add nodejs
+            # apk add npm
+            # apk add curl
+            apt-get install -y nodejs
+            apt-get install -y npm
+            apt-get install -y curl
+            apt-get install -y python3-pip
+            pip3 install awscli
+            # pip install awscli --upgrade
       # - run:
       #     name: Get backend url
       #     command: |
