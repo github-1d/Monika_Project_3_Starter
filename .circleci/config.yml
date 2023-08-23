@@ -340,8 +340,6 @@ jobs:
             # apk add nodejs
             # apk add npm
             # apk add curl
-            sudo apt-get install -y nodejs
-            sudo apt-get install -y npm
             sudo apt-get install -y curl
             sudo apt-get install -y awscli
             # pip3 install awscli
