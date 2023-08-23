@@ -205,7 +205,7 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys:
-            fingerprints: ["e4:8a:8b:32:13:3d:c9:59:0e:5d:b9:84:67:89:8e:41"] 
+            fingerprints: ["9c:bc:0f:1e:9d:7e:29:8f:c2:53:a5:8d:ca:ff:04:02"] 
       - attach_workspace:
           at: ~/
       - run:
@@ -262,6 +262,7 @@ jobs:
             apk add nodejs
             apk add npm
             apk add curl
+            apk add --update tar gzip
             pip install awscli --upgrade
       - run:
           name: Install ansible
@@ -294,7 +295,7 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys:
-            fingerprints: ["e4:8a:8b:32:13:3d:c9:59:0e:5d:b9:84:67:89:8e:41"] 
+            fingerprints: ["9c:bc:0f:1e:9d:7e:29:8f:c2:53:a5:8d:ca:ff:04:02"] 
       - attach_workspace:
           at: ~/
       - run:
