@@ -35,8 +35,8 @@ commands:
             when: on_fail
             command: |
               # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-              SUCCESS=$(curl --insecure  https://kvdb.io/ThzfJwmvaXFKjhBWTGNhmP/migration_${CIRCLE_WORKFLOW_ID:0:7})
-              echo "https://kvdb.io/ThzfJwmvaXFKjhBWTGNhmP/migration_${CIRCLE_WORKFLOW_ID:0:7}"
+              SUCCESS=$(curl --insecure  https://kvdb.io/NdbJwRqtA9tqf1FjKXBkDH/migration_${CIRCLE_WORKFLOW_ID:0:7})
+              echo "https://kvdb.io/NdbJwRqtA9tqf1FjKXBkDH/migration_${CIRCLE_WORKFLOW_ID:0:7}"
               # Logic for reverting the database state
               echo "${SUCCESS}"
               if [[ $SUCCESS == 1 ]];
@@ -251,8 +251,9 @@ jobs:
             echo "insecure" >> ~/.curlrc
             echo "insecure"
             # If you are using kvdb.io, generate the bucket ID "9GE4jRtKznmVKRfvdBABBe" in your local terminal first
-            curl https://kvdb.io/ThzfJwmvaXFKjhBWTGNhmP/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
-            echo "https://kvdb.io/ThzfJwmvaXFKjhBWTGNhmP/migration_${CIRCLE_WORKFLOW_ID:0:7}"
+            # curl https://kvdb.io/ThzfJwmvaXFKjhBWTGNhmP/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+            curl https://kvdb.io/NdbJwRqtA9tqf1FjKXBkDH/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+            echo "https://kvdb.io/NdbJwRqtA9tqf1FjKXBkDH/migration_${CIRCLE_WORKFLOW_ID:0:7}"
             fi
       # Here's where you will add some code to rollback on failure   
 
