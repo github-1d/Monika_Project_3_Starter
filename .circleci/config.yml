@@ -39,7 +39,7 @@ commands:
               echo "https://kvdb.io/ThzfJwmvaXFKjhBWTGNhmP/migration_${CIRCLE_WORKFLOW_ID:0:7}"
               # Logic for reverting the database state
               echo "${SUCCESS}"
-              if (( $SUCCESS == 1 ));
+              if [[ $SUCCESS == 1 ]];
               then
                 cd ~/project/backend
                 npm install
@@ -248,7 +248,7 @@ jobs:
             cat ~/project/backend/migrations_dump.txt
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
-            # echo "insecure" >> ~/.curlrc
+            echo "insecure" >> ~/.curlrc
             echo "insecure"
             # If you are using kvdb.io, generate the bucket ID "9GE4jRtKznmVKRfvdBABBe" in your local terminal first
             curl https://kvdb.io/ThzfJwmvaXFKjhBWTGNhmP/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
