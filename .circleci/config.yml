@@ -434,10 +434,10 @@ jobs:
             # apt-get install nodejs npm
             # yum -y install tar gzip
             # Update the package repositories
-            yum update -y
-            # Install Node.js and npm
-            curl -sL https://rpm.nodesource.com/setup_14.x | -E bash -
-            yum install -y nodejs
+            yum update
+            yum install epel-release
+            yum install nodejs
+            node --version
       - run:
           name: Get old stack workflow id and remove old stack and files
           command: |
