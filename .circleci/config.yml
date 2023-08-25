@@ -424,7 +424,7 @@ jobs:
 # Clean up phase
   cleanup:
     docker:
-      - image: amazon/aws-cli:latest
+      - image: amazon/aws-cli
     steps:
       - checkout
       - run:
