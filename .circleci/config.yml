@@ -460,8 +460,8 @@ jobs:
               else
                 echo "-----------cannot clean up----------------"
               fi
-      - destroy-environment
-      - revert-migrations
+      # - destroy-environment
+      # - revert-migrations
 
 
 workflows:
