@@ -231,9 +231,9 @@ jobs:
       - attach_workspace:
           at: ~/
       - run:
-          name: Install AWS CLI
+          name: Install tar gzip
           command: |
-            apt install -y tar gzip curl
+            sudo apt install -y tar gzip curl
       - run:
           name: Install AWS CLI
           command: |
