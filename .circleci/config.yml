@@ -320,6 +320,7 @@ jobs:
             apk add nodejs
             apk add npm
             apk add curl
+            pip install awscli --upgrade
       - run:
           name: Install ansible
           command: |
@@ -337,7 +338,8 @@ jobs:
             echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
-      # Here's where you will add some code to rollback on failure  
+      - destroy-environment   
+      - revert-migrations
 
  # Smoke test for front and backend
   smoke-test:
