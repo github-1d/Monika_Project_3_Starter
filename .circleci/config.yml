@@ -10,13 +10,6 @@ commands:
         #   workflow_id:
         #     type: string
         steps:
-          # - run:
-          #     when: on_fail
-          #     name: install aws aws-cli
-          #     command: |
-          #       yum -y install aws-cli
-          #       # apk update
-          #       # apk add --no-cache aws-cli
           - run:
               name: Destroy environments
               when: on_fail
@@ -195,8 +188,6 @@ jobs:
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt
-
-      # - destroy-environment:
       - destroy-environment
           # workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
 
@@ -218,6 +209,10 @@ jobs:
           name: Install ansible
           command: |
             apk add --update ansible
+      - run:
+          name: Install aws cli
+          command: |
+            apk add --update awscli
       - run:
           name: Configure server
           command: |
@@ -255,6 +250,8 @@ jobs:
             curl https://kvdb.io/NdbJwRqtA9tqf1FjKXBkDH/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             echo "https://kvdb.io/NdbJwRqtA9tqf1FjKXBkDH/migration_${CIRCLE_WORKFLOW_ID:0:7}"
             fi
+
+      - destroy-environment     
       # Here's where you will add some code to rollback on failure   
 
   deploy-frontend:
@@ -295,7 +292,8 @@ jobs:
             npm run build
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
-      # Here's where you will add some code to rollback on failure  
+      - destroy-environment   
+      - revert-migrations
 
   deploy-backend:
     docker:
@@ -425,10 +423,7 @@ jobs:
               --tags project=udapeople
               # echo OldWorkflowID: "${OldWorkflowID}"
               echo Current WorkflowID: "${CIRCLE_WORKFLOW_ID:0:7}"
-      - destroy-environment
-      - revert-migrations
-      # Here's where you will add some code to rollback on failure  
-
+ 
 # Clean up phase
   cleanup:
     docker:
@@ -440,14 +435,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            # apt-get update
-            # apt-get install nodejs npm
-            # yum -y install tar gzip
-            # Update the package repositories
-            # yum update
-            # yum install epel-release
-            yum install nodejs
-            node --version
+            yum -y install tar gzip
       - run:
           name: Get old stack workflow id and remove old stack and files
           command: |
@@ -472,8 +460,7 @@ jobs:
               else
                 echo "-----------cannot clean up----------------"
               fi
-      # - destroy-environment
-      # - revert-migrations
+
 
 
 workflows:
